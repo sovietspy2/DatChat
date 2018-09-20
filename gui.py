@@ -3,13 +3,15 @@ import tkinter.scrolledtext as tkst
 import os
 import time
 
-f2 = open("chat2.txt", "a")
+f2 = open("me/chat.txt", "a")
 
 def evaluate(event):
+    editArea.configure(state='normal')
     #entry.get()
     editArea.insert(tk.INSERT,'YOU: '+entry.get()+'\n')
     input_field.set("")
     send(entry.get())
+    editArea.configure(state='disabled')
 
 
 win = tk.Tk()
@@ -42,11 +44,13 @@ res.pack()
 win.geometry("500x500") #You want the size of the app to be 500x500
 def load():
     try:
-            if (os.stat("chat.txt").st_size!=0):
+            if (os.stat("partner/chat.txt").st_size!=0):
+                editArea.configure(state='normal')
                 f = open("chat.txt",'r+')
                 for line in f:
                     print(line)
                     editArea.insert(tk.INSERT,'PARTNER: '+line)
+                editArea.configure(state='disabled')   
                 f.seek(0)
                 f.truncate()
                 f.close()
